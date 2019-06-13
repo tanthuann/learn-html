@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Change Event</title>
+</head>
+<body>
+	<span>Age </span>
+	<select id="filter-age">
+		<option>20</option>
+		<option>21</option>
+		<option>30</option>
+	</select>
+	<span>Name </span>
+	<select id="filter-name">
+		<option>Thuan</option>
+		<option>Ti</option>
+		<option>Leo</option>
+		<option>Teo</option>
+	</select>
+	<table id="students-table">
+		
+	</table>
+
+	<script>
+		var students = [
+			{name: 'Thuan', age: 20},
+			{name: 'Ti', age: 20},
+			{name: 'Leo', age: 21},
+			{name: 'Thuan', age: 30},
+			{name: 'Teo', age: 30}
+		];
+
+		var filterAge = document.getElementById('filter-age');
+		filterAge.addEventListener('change',filterTableStuAge);
+		var filterName = document.getElementById('filter-name');
+		filterName.addEventListener('change',filterTableStuName);
+
+		function filterTableStuName(){
+			var nameChange = filterName.value;
+			console.log(nameChange);
+			var arrFilteredName = students.filter(function(student){
+				return nameChange === student.name;
+			});
+
+			render(arrFilteredName);
+		};
+
+		function filterTableStuAge(){
+			var ageChange = parseInt(filterAge.value);
+			console.log(filterAge.value);
+			var arrFilteredAge = students.filter(function(student){
+				return student.age === ageChange;
+			});
+			render(arrFilteredAge);
+		};
+
+
+		function render(arrStu){
+			var createTable = document.getElementById('students-table');
+			var newArrStu = arrStu.map(function (student){
+				return '<tr><td>'+student.name+'</td><td>'+student.age+'</td></tr>';
+			});
+			createTable.innerHTML = newArrStu.join('');
+		};
+
+		render(students);
+	</script>
+</body>
+</html>

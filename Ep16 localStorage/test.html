@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test</title>
+</head>
+<body>
+	<input type="text" id="data" />
+	<button onclick="addItem()">enter</button>
+	<ul id="listItem"></ul>
+	<script type="text/javascript">
+		var list = [
+		  'get up at 6 o clock',
+		  'brushing teeth'
+		];
+
+
+		function addItem(){
+		  var input = document.getElementById('data');
+		  list.push(input.value);
+		  render();
+		  input.value ='';
+		}
+
+		function render(){
+		var i = 1;
+		  var htmlList = document.getElementById('listItem');
+		  var value = list.map(function(item) {
+		    return '<li id="dong_'+(i++)+'">' + item + '  <button value="'+item+'">delete</button></li>';
+		});
+		  htmlList.innerHTML = value.join('');
+		}
+		render();
+
+		var bien = document.getElementById("listItem");
+
+		function dong_nao(e) {
+			//console.log(e.target.value);
+		   list.splice(list.indexOf(e.target.value),1); 
+		   render();
+		}
+
+		bien.addEventListener("click", dong_nao);
+
+
+	</script>
+</body>
+</html>

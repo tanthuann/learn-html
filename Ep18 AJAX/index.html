@@ -1,0 +1,69 @@
+<!--
+	localStorage.getItem
+	localStorage.setItem 
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>localStorage</title>
+</head>
+<body>
+	<input type="text" id="todo" />
+	<button id="add-todolist">Add</button>
+	<h3>List need do :</h3>
+	<ul id="todo-list">
+		
+	</ul>
+	
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">		
+		var url = 'http://localhost:9081/todos';
+		var todoList;
+		axios.get(url).then(function(res){
+			var items = res.data;
+			todoList = items;
+			render(items);
+		})
+		
+
+		var contentList = document.getElementById('todo-list');
+		var addTodoList = document.getElementById('add-todolist');
+		var todo = document.getElementById('todo');
+		
+		addTodoList.addEventListener('click',addContent);
+
+		function addContent() {
+			var newContent = todo.value;
+			//push into array todoList
+			var newObj = {
+				id: todoList.length,
+				content: newContent
+			};
+			
+			todoList.push(newObj);
+			console.log(todoList);
+			render(todoList);
+			todo.value='';
+		}
+
+		function render(todoList){
+			var i=1;
+			
+			var newTodoList = todoList.map(function(ele){
+				//<li id="Dong_i">Giat Do <button value="Giat Do ">Delete</button></li><br/>
+				var text = '<li id="Dong_'+i+'">' + ele.content +'</li><br/>';
+				i++;
+				return text;
+			});
+			contentList.innerHTML = newTodoList.join('');
+			
+		}
+		
+		//render(todoList);
+
+	</script>
+</body>
+</html>

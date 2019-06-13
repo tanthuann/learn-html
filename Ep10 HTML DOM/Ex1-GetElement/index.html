@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ol>
+		<li>Ti</li>
+		<li>Teo</li>
+		<li>Tun</li>
+	</ol>
+	<p id="T">Class : Thuan</p>
+	<div id="myDIV">
+		<h2 class="exam">Say Hello </h2>
+	</div>
+	<button onclick="myClassName()">My Class Name ? </button>
+	<button onclick="myTagName()">Info of tag</button>
+	<button onclick="tryIt()">Try it</button>
+	<button onclick="reset()">Reset</button>
+	<p id="demo1"></p>
+	<p id="demo2"></p>
+	<p id="demo3"></p>
+
+	<script>
+		function reset() {
+			document.getElementById('demo1').innerHTML = '';
+			document.getElementById('demo2').innerHTML = '';
+			document.getElementById('myDIV').querySelector('.exam').innerHTML = 'Say Hello';
+			document.getElementById('demo3').innerHTML = '';
+		}
+
+		function myTagName() {
+			var x = document.getElementsByTagName('li');
+			document.getElementById('demo2').innerHTML = x[1].innerHTML;
+		}	
+
+		function myClassName() {
+		var x = document.getElementById('T');
+		document.getElementById('demo1').innerHTML = x.innerHTML;
+		}
+		function tryIt(){
+			var x = document.getElementById('myDIV');
+			x.querySelector('.exam').innerHTML = 'Bai bai';
+			document.getElementById('demo3').innerHTML = 'Edited';
+		}
+	</script>
+</body>
+</html>

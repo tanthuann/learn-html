@@ -1,0 +1,85 @@
+<!--
+	localStorage.getItem
+	localStorage.setItem 
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>localStorage</title>
+</head>
+<body>
+	<input type="text" id="todo" />
+	<button id="add-todolist">Add</button>
+	<h3>List need do :</h3>
+	<ul id="todo-list">
+		
+	</ul>
+
+	<script type="text/javascript">
+		var storageKey = 'todoList';
+		var dataString = localStorage.getItem(storageKey)
+		var todoList;
+		if(dataString){
+			todoList = JSON.parse(dataString);
+		}
+		else{
+			todoList = todoList = [
+			'Lau nha',
+			'Quet nha',
+			'Rua chen'
+			];
+		}
+		var contentList = document.getElementById('todo-list');
+		var addTodoList = document.getElementById('add-todolist');
+		var todo = document.getElementById('todo');
+
+		todo.value = sessionStorage.getItem('draft');
+
+		addTodoList.addEventListener('click',addContent);
+		contentList.addEventListener('click',deleteIt);
+		todo.addEventListener('keyup',updateSessionStorage);
+
+		function addContent() {
+			var newContent = todo.value;
+			//push into array todoList
+			todoList.push(newContent);
+			localStorage.setItem(storageKey,JSON.stringify(todoList));
+			render(todoList);
+			todo.value='';
+			sessionStorage.setItem('draft',todo.value);
+		}
+
+		function deleteIt(event) {
+			//get value button delete
+			var button = event.target;
+			var i = parseInt(button.dataset.id);
+			console.log(i);
+			if(i >= 0){
+			todoList.splice(i,1);
+			render(todoList);
+			localStorage.setItem(storageKey,JSON.stringify(todoList));
+			}
+		}
+
+		function updateSessionStorage(){
+			sessionStorage.setItem('draft',todo.value);
+		}
+
+		function render(todoList){
+			var newTodoList = todoList.map(function(ele,i){
+				//<li id="Dong_i">Giat Do <button value="Giat Do ">Delete</button></li><br/>
+				var text = '<li>' + ele +' <button data-id="'+ i +'">Delete</button></li><br/>';
+				return text;
+			});
+			contentList.innerHTML = newTodoList.join('');
+			
+		}
+		localStorage.setItem(storageKey,JSON.stringify(todoList));
+		render(todoList);
+
+	</script>
+</body>
+</html>

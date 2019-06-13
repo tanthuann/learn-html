@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>innerHTML</title>
+</head>
+<body>
+	<h1>Name</h1>
+
+	<p class="foo">Ti</p>
+	<p class="foo">Teo</p>
+	<p class="foo">Te</p>
+	<script type="text/javascript">
+		var tagP = document.getElementsByTagName('p');
+		var urlCoder = "<a href=\"https://coders.tokyo/\" target=\"_blank\">Coders Tokyo</a>"
+		//console.log(tagP[0]+urlCoder);
+		for(var ele of tagP){
+			ele.innerHTML =  ele.innerHTML+ "   " + urlCoder;
+		}	
+	</script>
+</body>
+</html>

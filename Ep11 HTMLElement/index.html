@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HTMLElement</title>
+</head>
+<body>
+	<input type="text" name="text" id="into">
+	<button onclick="insertName()">Them ten vao list</button>
+	<button onclick="removeName()">Remove</button>
+	<h1>List Name</h1>
+	<ol id="demo">
+		<li>Thuan</li>
+		<li>Teo</li>
+		<li>Ti</li>
+	</ol>
+	
+	<script type="text/javascript">
+		function insertName() {
+			var newName = document.createElement('li');
+			newName.textContent = document.getElementById('into').value;
+			var x = document.getElementById('demo');
+			x.appendChild(newName);
+		}
+
+		function removeName() {
+			var length = document.getElementById('demo').children.length
+			document.getElementById('demo').children[length-1].remove();
+		}
+	</script>
+
+</body>
+</html>

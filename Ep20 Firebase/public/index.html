@@ -1,0 +1,81 @@
+<!--line 42
+  sessionStorage.getItem
+  sessionStorage.setItem
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>localStorage</title>
+</head>
+<body>
+  <input type="text" id="todo" />
+  <button id="add-todolist">Add</button>
+  <h3>List need do :</h3>
+  <ul id="todo-list">
+    
+  </ul>
+
+  <script type="text/javascript">
+    var storageKey = 'todoList';
+    var dataString = localStorage.getItem(storageKey)
+    var todoList;
+    if(dataString){
+      todoList = JSON.parse(dataString);
+    }
+    else{
+      todoList = todoList = [
+      'Lau nha',
+      'Quet nha',
+      'Rua chen',
+      'thuanahhihih'
+      ];
+    }
+    var contentList = document.getElementById('todo-list');
+    var addTodoList = document.getElementById('add-todolist');
+    var todo = document.getElementById('todo');
+    todo.value = sessionStorage.getItem('draft');
+    var deleteTodo = document.getElementById('delete-todo');
+    //deleteTodo.addEventListener('click',deleteIt);
+    addTodoList.addEventListener('click',addContent);
+    contentList.addEventListener('click',deleteIt);
+    todo.addEventListener('keyup',updateSessionStorage);
+
+    function updateSessionStorage() {
+      sessionStorage.setItem('draft',todo.value);
+    }
+
+    function addContent() {
+      var newContent = todo.value;
+      todoList.push(newContent);
+      localStorage.setItem(storageKey,JSON.stringify(todoList));
+      render(todoList);
+      todo.value='';
+      sessionStorage.removeItem('draft');
+    }
+
+    function deleteIt(event) {
+      todoList.splice(todoList.indexOf(event.target.value),1);
+      render(todoList);
+      localStorage.setItem(storageKey,JSON.stringify(todoList));
+    }
+
+    function render(todoList){
+      var i=1;
+      
+      var newTodoList = todoList.map(function(ele){
+        var text = '<li id="Dong_'+i+'">' + ele +' <button value="'+ele+'">Delete</button></li><br/>';
+        i++;
+        return text;
+      });
+      contentList.innerHTML = newTodoList.join('');
+      
+    }
+    localStorage.setItem(storageKey,JSON.stringify(todoList));
+    render(todoList);
+
+  </script>
+</body>
+</html>
